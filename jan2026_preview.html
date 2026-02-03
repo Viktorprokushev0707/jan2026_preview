@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Январь 2026 — Что нового у брокеров</title>
+  <style>
+
+    :root {
+      --bg1: #f7efe4;
+      --bg2: #e8eef6;
+      --bg3: #fdfbf7;
+      --card: #ffffff;
+      --text: #1b1f24;
+      --muted: #4f5b66;
+      --accent: #0f5d62;
+      --accent-2: #d69a6a;
+      --accent-3: #2a3b53;
+      --line: #e3e6ea;
+      --shadow: 0 24px 60px rgba(12, 18, 28, 0.2);
+      --slide-w: min(92vw, 1280px);
+      --slide-h: calc(var(--slide-w) * 0.5625);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background:
+        radial-gradient(1200px 700px at 8% 12%, var(--bg1), transparent 60%),
+        radial-gradient(900px 600px at 92% 18%, #eef5ef, transparent 55%),
+        linear-gradient(135deg, var(--bg2), var(--bg3));
+      font-family: "Avenir Next", "Avenir", "Gill Sans", "Trebuchet MS", sans-serif;
+      color: var(--text);
+      overflow: hidden;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(15, 93, 98, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 93, 98, 0.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+      opacity: 0.35;
+    }
+    .deck { position: relative; width: 100vw; height: 100vh; display:flex; align-items:center; justify-content:center; }
+    .slide {
+      width: var(--slide-w);
+      aspect-ratio: 16 / 9;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: 0;
+      display: none;
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+    }
+    .slide::before { content: none; }
+    .slide::after {
+      content: attr(data-idx);
+      position: absolute;
+      right: 26px;
+      top: 18px;
+      font-family: "Didot", "Bodoni 72", "Iowan Old Style", "Georgia", serif;
+      font-size: 64px;
+      letter-spacing: 0.06em;
+      color: rgba(15, 20, 30, 0.06);
+      z-index: 0;
+    }
+    .slide.active { display: block; }
+    .slide.active .slide-inner { animation: riseIn .35s ease both; }
+    .slide-inner { height: 100%; padding: 36px 40px; display:flex; flex-direction:column; gap: 12px; overflow:auto; position: relative; z-index: 1; }
+    .cover { display:flex; flex-direction:column; justify-content:center; gap: 18px; }
+    .cover-title {
+      font-family: "Didot", "Bodoni 72", "Iowan Old Style", "Georgia", serif;
+      font-size: clamp(28px, 3.4vw, 46px);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+    .cover-sub { font-size: clamp(15px, 1.9vw, 21px); color: var(--muted); }
+    .divider { display:flex; flex-direction:column; justify-content:center; align-items:flex-start; gap: 8px; }
+    .divider-title {
+      font-family: "Didot", "Bodoni 72", "Iowan Old Style", "Georgia", serif;
+      font-size: clamp(30px, 3.5vw, 48px);
+      font-weight: 700;
+    }
+    .divider-sub { font-size: clamp(17px, 2vw, 23px); color: var(--muted); }
+    .h1 {
+      font-size: clamp(18px, 2vw, 26px);
+      font-weight: 700;
+      margin: 0;
+      position: relative;
+      padding-left: 12px;
+    }
+    .h1::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.25em;
+      width: 6px;
+      height: 0.9em;
+      border-radius: 4px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-2));
+    }
+    .h2 { font-size: clamp(13px, 1.4vw, 18px); color: var(--muted); margin: 0 0 8px; }
+    .toc {
+      columns: 2;
+      column-gap: 28px;
+      font-size: clamp(12px, 1.2vw, 15px);
+      line-height: 1.45;
+      padding-left: 0;
+      list-style: none;
+    }
+    .toc li { margin: 6px 0; position: relative; padding-left: 18px; }
+    .toc li::before {
+      content: "●";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .kp-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+    .kp {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px 12px 16px;
+      background: #fbfaf7;
+      position: relative;
+      box-shadow: 0 10px 24px rgba(15, 20, 30, 0.08);
+    }
+    .kp::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--accent), transparent 80%);
+      border-radius: 12px 0 0 12px;
+      opacity: 0.7;
+    }
+    .kp-num {
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      font-size: 12px;
+    }
+    .kp-title { font-weight: 700; margin-bottom: 4px; font-size: clamp(12px, 1.3vw, 15px); }
+    .kp-desc { font-size: clamp(11px, 1.1vw, 13px); color: var(--muted); line-height: 1.32; word-break: break-word; hyphens: auto; }
+    .detail-grid { display:grid; grid-template-columns: 2fr 1fr; gap: 18px; }
+    .detail-main { padding-right: 4px; }
+    .detail-meta {
+      border-left: 1px solid var(--line);
+      padding: 12px 14px;
+      font-size: clamp(11px, 1.05vw, 13px);
+      color: var(--muted);
+      background: #fbfaf7;
+      border-radius: 12px;
+      box-shadow: inset 0 0 0 1px rgba(15, 93, 98, 0.05);
+    }
+    .label { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); margin: 8px 0 4px; }
+    .text { font-size: clamp(11px, 1.1vw, 13px); line-height: 1.32; color: var(--text); word-break: break-word; hyphens: auto; }
+    .meta-line { margin-bottom: 6px; word-break: break-word; hyphens: auto; }
+    .link { margin-bottom: 6px; word-break: break-all; }
+    .take-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; }
+    .take-item {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #fbfaf7;
+      box-shadow: 0 10px 24px rgba(15, 20, 30, 0.08);
+    }
+    .take-title { font-weight: 700; margin-bottom: 6px; font-size: clamp(12px, 1.3vw, 15px); }
+    .take-text { font-size: clamp(11px, 1.1vw, 13px); color: var(--muted); line-height: 1.32; word-break: break-word; hyphens: auto; }
+    .nav { position: fixed; left: 20px; bottom: 18px; display:flex; gap: 12px; align-items:center; font-size: 14px; color: var(--muted); }
+    .btn {
+      background: #fff;
+      border: 1px solid var(--line);
+      padding: 6px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(20, 30, 40, 0.12);
+      transition: transform .15s ease, box-shadow .2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 20px rgba(20, 30, 40, 0.16); }
+    .progress {
+      position: fixed;
+      right: 20px;
+      bottom: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      background: rgba(255,255,255,0.78);
+      padding: 6px 10px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      backdrop-filter: blur(6px);
+      min-width: 90px;
+      z-index: 9;
+    }
+    .progress::after {
+      content: "";
+      display: block;
+      height: 4px;
+      border-radius: 4px;
+      margin-top: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      width: var(--pct, 0%);
+      transition: width .2s ease;
+    }
+    .toolbar {
+      position: fixed;
+      right: 20px;
+      top: 18px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: rgba(255,255,255,0.8);
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 24px rgba(15, 20, 30, 0.12);
+      z-index: 10;
+    }
+    .toolbar .btn { font-size: 12px; padding: 6px 10px; }
+
+    .slide.active .kp,
+    .slide.active .take-item,
+    .slide.active .detail-main,
+    .slide.active .detail-meta { animation: fadeUp .4s ease both; }
+    .slide.active .kp:nth-child(1),
+    .slide.active .take-item:nth-child(1) { animation-delay: 0.05s; }
+    .slide.active .kp:nth-child(2),
+    .slide.active .take-item:nth-child(2) { animation-delay: 0.1s; }
+    .slide.active .kp:nth-child(3),
+    .slide.active .take-item:nth-child(3) { animation-delay: 0.15s; }
+    .slide.active .kp:nth-child(4),
+    .slide.active .take-item:nth-child(4) { animation-delay: 0.2s; }
+
+    @keyframes riseIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 900px) {
+      .slide-inner { padding: 26px 28px; }
+      .kp-grid { grid-template-columns: 1fr; }
+      .detail-grid { grid-template-columns: 1fr; }
+      .detail-meta { border-left: none; border-top: 1px solid var(--line); padding-left: 12px; margin-top: 8px; }
+      .toc { columns: 1; }
+      .toolbar { right: 12px; top: 12px; flex-wrap: wrap; max-width: 90vw; }
+    }
+
+    /* Fixed 1280x720 mode */
+    body.fixed-1280 {
+      overflow: auto;
+    }
+    body.fixed-1280 .deck {
+      width: auto;
+      height: auto;
+      display: block;
+      padding: 0;
+    }
+    body.fixed-1280 .slide {
+      display: block !important;
+      width: 1280px;
+      height: 720px;
+      aspect-ratio: auto;
+      margin: 0 auto 18px;
+    }
+    body.fixed-1280 .slide-inner {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* Print: keep exact layout/colors */
+    @page { size: 1280px 720px; margin: 0; }
+    @media print {
+      html, body { width: 1280px; height: 720px; }
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .nav, .progress, .toolbar { display: none !important; }
+      .deck { width: auto; height: auto; display: block; padding: 0; }
+      .slide {
+        display: block !important;
+        width: 1280px;
+        height: 720px;
+        page-break-after: always;
+      }
+      .slide-inner { height: 100%; overflow: hidden; }
+    }
+  
+    @media (max-width: 640px) {
+      body { overflow: auto; }
+      .deck { align-items: flex-start; padding-top: 12px; height: auto; }
+      .slide {
+        width: 94vw;
+        height: calc(100vh - 140px);
+        aspect-ratio: auto;
+        border-radius: 14px;
+        box-shadow: 0 14px 30px rgba(12, 18, 28, 0.16);
+      }
+      .slide::after { font-size: 42px; right: 18px; top: 12px; }
+      .slide-inner { padding: 18px 18px; gap: 10px; }
+      .cover-title { font-size: 22px; line-height: 1.15; }
+      .cover-sub { font-size: 14px; }
+      .divider-title { font-size: 24px; }
+      .divider-sub { font-size: 14px; }
+      .h1 { font-size: 18px; }
+      .h2 { font-size: 13px; }
+      .label { font-size: 9px; }
+      .text { font-size: 13px; line-height: 1.35; }
+      .kp-title { font-size: 13px; }
+      .kp-desc { font-size: 12px; }
+      .take-title { font-size: 13px; }
+      .take-text { font-size: 12px; }
+      .nav {
+        left: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+        font-size: 12px;
+        gap: 8px;
+      }
+      .progress {
+        right: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+        font-size: 11px;
+        min-width: 72px;
+      }
+      .toolbar {
+        right: 12px;
+        top: calc(12px + env(safe-area-inset-top));
+      }
+      .btn { padding: 8px 12px; font-size: 13px; }
+    }
+</style>
+</head>
+<body>
+  <div class="deck" id="deck">
+    <section class="slide">
+  <div class="slide-inner cover">
+    <div class="cover-title">Новые функции, продукты и сервисы у брокеров. Январь 2026</div>
+    <div class="cover-sub">Cloud Research для АТОН</div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Новые функции, продукты и сервисы у брокеров. Январь 2026</div>
+    <div class="h2">Что нового у брокеров</div>
+    <ul class="toc"><li>Т- Инвестиции (Россия) – Новый функционал трейдинга</li><li>Т-Инвестиции (Россия) — Смарт-облигации с доходностью 21,94%</li><li>Альфа-Инвестиции (Россия) — Социальная сеть «Альфа-Инвестор» и AI-модерация</li><li>СберИнвестиции (Россия) — Единая тарифная система и интеграция платежных счетов</li><li>Финам (Россия) – Обмен замороженных активов (стратегия/сервис)</li><li>Public.com (США) — Интеграция пре-маркет аналитики и фракционные казначейские облигации</li><li>Moomoo (США/Азия) — Опционы с экспирацией в понедельник и среду и кэш-свип 8,1%</li><li>Revolut (Европа/Мексика) — Полноценный запуск банка в Мексике и новые риск-метрики</li><li>Robinhood (США) — Экосистема Robinhood Cortex и закрытие сделки по MIAXdx</li><li>Webull (США/Китай) – Торговля на основании событий (предсказательные рынки) и геймификация</li></ul>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner divider">
+    <div class="divider-title">Январь 2026.</div>
+    <div class="divider-sub">Что нового у брокеров</div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Т-Инвестиции (Россия).</div>
+    <div class="h2">Новый функционал трейдинга (1/2)</div>
+    <div class="kp-grid"><div class="kp">
+  <div class="kp-num">1</div>
+  <div class="kp-title">Отчет о доходности</div>
+  <div class="kp-desc">Отображение закрытых счетов в аналитике даёт полный отчёт о доходности по всем инвестициям.</div>
+</div><div class="kp">
+  <div class="kp-num">2</div>
+  <div class="kp-title">Открытие стакана одной кнопкой</div>
+  <div class="kp-desc">Введена кнопка «Активная торговля», мгновенно открывающая стакан для быстрой подачи заявки.</div>
+</div><div class="kp">
+  <div class="kp-num">3</div>
+  <div class="kp-title">Единый экран</div>
+  <div class="kp-desc">Стакан и активные заявки объединены, что позволяет торговать и контролировать ордеры в одном окне.</div>
+</div><div class="kp">
+  <div class="kp-num">4</div>
+  <div class="kp-title">Конкурент терминала</div>
+  <div class="kp-desc">Цель – ускорить и упростить активный трейдинг, конкурируя с профессиональными терминалами.</div>
+</div></div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Т-Инвестиции (Россия).</div>
+    <div class="h2">Новый функционал трейдинга (2/2)</div>
+    <div class="detail-grid">
+      <div class="detail-main"><div class="label">Суть инновации</div><div class="text">В конце января Tinkoff запустил обновление инвест-приложения с улучшениями для активных трейдеров. В портфельной аналитике теперь отображаются закрытые счета с операциями – это даёт пользователям полный обзор результатов по всем счетам, включая уже закрытые. На экран деталей бумаги добавлена отдельная кнопка «Активная торговля» рядом с «Купить/Продать»: при нажатии сразу открывается стакан быстрой торговли, позволяющий мгновенно выставлять заявки; при необходимости можно переключиться на график. Обновлена форма подачи заявок: теперь она совмещает в одном окне таблицу заявок (стакан) и управление уже выставленными ордерами. Если по инструменту есть активные заявки, приложение показывает их количество и позволяет управлять ими прямо с экрана. Все эти улучшения направлены на то, чтобы опыт активной торговли стал более оперативным и удобным, сводя к минимуму переключения между разными разделами.</div><div class="label">Эффект</div><div class="text">Быстрый доступ к стакану и заявки в одном окне призваны сократить время реакции на рыночные изменения и сделать приложение конкурентоспособным по функциональности с продвинутыми терминалами. Интуитивное управление ордерами в одном месте снижает риск ошибок и упущенных возможностей при волатильной торговле.</div><div class="label">Цель</div><div class="text">Повысить эффективность и скорость совершения сделок для опытных трейдеров. Отображение закрытых счетов улучшает аналитику портфеля, позволяя инвестору видеть полную картину доходности даже по закрытым ИИС и брокерским счетам.</div><div class="label">Почему интересно АТОН</div><div class="text">Тинькофф – лидер российского финтеха – внедряет продвинутые trading-интерфейсы, упрощая активным инвесторам жизнь. АТОН может учесть этот кейс в конкурентном анализе: расширенные быстрые сделки и совмещенные экраны заявок повышают лояльность продвинутых клиентов – потенциально стоит рассмотреть схожие улучшения в собственных платформах.</div></div>
+      <div class="detail-meta"><div class="label">Тип нововведения</div><div class="meta-line">функция</div><div class="label">Дата и источник</div><div class="meta-line">30 января 2026 (бета-релиз Tinkoff, официальное сообщество).</div><div class="label">Платформа</div><div class="meta-line">Мобильное приложение (Android, бета-версия 6.56.0).</div><div class="label">Где почитать</div><div class="meta-line"><div class="link">https://www.tbank.ru/invest/social/profile/Beta_Testing_Invest/a62c9b8d-e271-4c27-86b9-9568df87ccfa/?author=profile</div></div></div>
+    </div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Т-Инвестиции (Россия).</div>
+    <div class="h2">Смарт-облигации с доходностью 21,94% (1/2)</div>
+    <div class="kp-grid"><div class="kp">
+  <div class="kp-num">1</div>
+  <div class="kp-title">Смарт-облигации 21,94%</div>
+  <div class="kp-desc">Новый формат долговых инструментов для прямого финансирования бизнеса с доходностью выше рыночных бенчмарков.</div>
+</div><div class="kp">
+  <div class="kp-num">2</div>
+  <div class="kp-title">Ежемесячный купон 20%</div>
+  <div class="kp-desc">Гарантированные выплаты фиксированного дохода каждый месяц напрямую на брокерский счет клиента.</div>
+</div><div class="kp">
+  <div class="kp-num">3</div>
+  <div class="kp-title">Интеграция с Lifestyle</div>
+  <div class="kp-desc">Спецпредложения и бонусы при использовании средств инвест-копилки для бронирования путешествий и покупок.</div>
+</div><div class="kp">
+  <div class="kp-num">4</div>
+  <div class="kp-title">Прямая дистрибуция</div>
+  <div class="kp-desc">Упрощенный механизм выпуска и покупки бондов без необходимости прохождения всех биржевых фильтров.</div>
+</div></div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Т-Инвестиции (Россия).</div>
+    <div class="h2">Смарт-облигации с доходностью 21,94% (2/2)</div>
+    <div class="detail-grid">
+      <div class="detail-main"><div class="label">Суть инновации</div><div class="text">Брокер «Т-Инвестиции» (ранее Тинькофф) в конце января 2026 года запустил инновационный продукт — смарт-облигации для финансирования реального сектора (на примере эмитента «ЭкоНива-Техника»). Продукт сочетает в себе черты классической облигации и цифрового финансового актива (ЦФА) с фиксированной доходностью до 21,94% годовых и ежемесячными выплатами купона в размере 20%. Особенность «смарт»-формата заключается в цифровой дистрибуции через платформу брокера, что позволяет эмитенту привлекать средства напрямую от розничных инвесторов, минуя сложные биржевые процедуры листинга для данного конкретного выпуска. В январе также были обновлены промокоды на бронирование сервисов через инвест-копилку, что усиливает интеграцию инвестиций в повседневное потребление.</div><div class="label">Эффект</div><div class="text">Частные инвесторы получили доступ к уникальным долговым инструментам с доходностью выше ключевой ставки и регулярным денежным потоком. Смарт-облигации позволяют диверсифицировать портфель за счет активов, которые не всегда коррелируют с общим рынком акций. Низкий порог входа и простота покупки «в один клик» делают инструмент конкурентоспособным по сравнению с банковскими депозитами.</div><div class="label">Цель</div><div class="text">Т-Банк стремится удержать ликвидность внутри своей экосистемы, предлагая клиентам доходность, сопоставимую или превышающую банковские вклады. Для брокера это возможность зарабатывать на комиссии за организацию размещения и обслуживании долга, а также укреплять лояльность аудитории через эксклюзивные предложения. Это также тест инфраструктуры для массового запуска ЦФА в 2026 году.</div><div class="label">Почему интересно АТОН</div><div class="text">Этот кейс демонстрирует потенциал создания собственных внебиржевых долговых продуктов для розничных клиентов. Для АТОНа это сигнал о востребованности инструментов с фиксированной доходностью и ежемесячными выплатами в текущих макроэкономических условиях.</div></div>
+      <div class="detail-meta"><div class="label">Тип нововведения</div><div class="meta-line">Функция / Технология (новый класс долговых активов)</div><div class="label">Дата и источник</div><div class="meta-line">29 января 2026 года. Пульс Т-Инвестиции, официальный канал T_Smart</div><div class="label">Платформа</div><div class="meta-line">iOS, Android (мобильное приложение)</div><div class="label">Где почитать</div><div class="meta-line"><div class="link">https://www.tbank.ru/invest/social/profile/T_Smart/?author=profile</div><div class="link">https://www.tbank.ru/invest/social/profile/Beta_Testing_Invest/a62c9b8d-e271-4c27-86b9-9568df87ccfa/?author=profile</div></div></div>
+    </div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Альфа.</div>
+    <div class="h2">Социальная сеть «Альфа-Инвестор» и AI-модерация (1/2)</div>
+    <div class="kp-grid"><div class="kp">
+  <div class="kp-num">1</div>
+  <div class="kp-title">ИИ-модерация обсуждений</div>
+  <div class="kp-desc">Нейросеть фильтрует манипулятивный контент и спам в социальной сети инвесторов в режиме 24/7.</div>
+</div><div class="kp">
+  <div class="kp-num">2</div>
+  <div class="kp-title">Персонализация по портфелю</div>
+  <div class="kp-desc">Лента новостей и мнений автоматически подстраивается под состав активов конкретного пользователя.</div>
+</div><div class="kp">
+  <div class="kp-num">3</div>
+  <div class="kp-title">Топ обсуждаемых эмитентов</div>
+  <div class="kp-desc">Автоматический дашборд выводит акции с самым высоким уровнем социального хайпа и волатильности.</div>
+</div><div class="kp">
+  <div class="kp-num">4</div>
+  <div class="kp-title">Коллаборация с ÖMANKÖ</div>
+  <div class="kp-desc">Запуск лимитированных дизайнов инвест-карт как инструмент привлечения молодой и стильной аудитории.</div>
+</div></div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Альфа.</div>
+    <div class="h2">Социальная сеть «Альфа-Инвестор» и AI-модерация (2/2)</div>
+    <div class="detail-grid">
+      <div class="detail-main"><div class="label">Суть инновации</div><div class="text">Альфа-Инвестиции представили масштабное обновление своей социальной платформы для трейдеров — «Альфа-Инвестор». Ключевым технологическим внедрением стала система AI-модерации, которая в реальном времени анализирует сообщения пользователей на предмет манипуляций рынком, спама и токсичности, а также автоматически подсвечивает наиболее обсуждаемые тикеры дня. В приложении реализован новый алгоритм ранжирования контента, который показывает пользователю мнения аналитиков и других инвесторов именно по тем бумагам, которые есть в его портфеле. Параллельно банк запустил в интернет-банке функцию брендирования для бизнес-клиентов и лимитированные дизайны инвест-карт в партнерстве с ÖMANKÖ, создавая эмоциональную связь с брендом через визуальную эстетику.</div><div class="label">Эффект</div><div class="text">Инвесторы получили безопасную среду для обсуждения идей, где риск наткнуться на фейковые новости или «памп» снижен благодаря ИИ. Персонализация ленты новостей экономит время клиента: он видит только то, что влияет на его капитал. Lifestyle-коллаборации превращают владение инвест-продуктом в элемент современного имиджа, что привлекает более молодую и активную аудиторию.</div><div class="label">Цель</div><div class="text">Альфа-Банк стремится повысить вовлеченность (engagement) клиентов, превращая инвестиционное приложение в полноценное медиа. Рост времени, проводимого в приложении, напрямую коррелирует с увеличением количества сделок. AI-модерация снижает операционные расходы на поддержку сообщества и защищает репутацию брокера.</div><div class="label">Почему интересно АТОН</div><div class="text">Кейс подчеркивает важность контентной составляющей и сообщества в современном брокере. Для АТОНа это пример того, как можно использовать ИИ для фильтрации огромных массивов данных и предоставления клиенту только релевантной и безопасной информации.</div></div>
+      <div class="detail-meta"><div class="label">Тип нововведения</div><div class="meta-line">UX / Технология (социальный трейдинг и ИИ-контроль контента)</div><div class="label">Дата и источник</div><div class="meta-line">16 января 2026 года. Пресс-служба Альфа-Банка</div><div class="label">Платформа</div><div class="meta-line">iOS, Android, Web</div><div class="label">Где почитать</div><div class="meta-line"><div class="link">https://alfabank.ru/news/t/release/sotsset-alfa-investor-ii-moderatsiya-i-samie-obsuzhdaemie-emitenti/</div></div></div>
+    </div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">СберИнвестиции (Россия).</div>
+    <div class="h2">Единая тарифная система и интеграция платежных счетов (1/2)</div>
+    <div class="kp-grid"><div class="kp">
+  <div class="kp-num">1</div>
+  <div class="kp-title">Единая экосистемная комиссия</div>
+  <div class="kp-desc">Обслуживание всех счетов становится бесплатным при минимальной активности в экосистеме или подписке.</div>
+</div><div class="kp">
+  <div class="kp-num">2</div>
+  <div class="kp-title">Платежные счета без карт</div>
+  <div class="kp-desc">Полноценный финансовый инструмент для расчетов и инвестиций, не требующий выпуска пластика.</div>
+</div><div class="kp">
+  <div class="kp-num">3</div>
+  <div class="kp-title">Мгновенная ликвидность СБП</div>
+  <div class="kp-desc">Прямая интеграция брокера с платежным счетом для быстрых пополнений и выводов через QR-коды.</div>
+</div><div class="kp">
+  <div class="kp-num">4</div>
+  <div class="kp-title">Льготы для пенсионеров</div>
+  <div class="kp-desc">Индексация выплат и специальные условия обслуживания стимулируют приток возрастных инвесторов.</div>
+</div></div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">СберИнвестиции (Россия).</div>
+    <div class="h2">Единая тарифная система и интеграция платежных счетов (2/2)</div>
+    <div class="detail-grid">
+      <div class="detail-main"><div class="label">Суть инновации</div><div class="text">С 1 января 2026 года Сбербанк внедрил радикально новую систему обслуживания счетов, которая напрямую влияет на инвестиционное поведение миллионов клиентов. Введена «единая комиссия» на все карты и счета: обслуживание становится бесплатным при условии суммарных трат от 5000 рублей в месяц или наличии подписки СберПрайм. Особое внимание уделено «платежным счетам» без физических карт, которые теперь полностью интегрированы в брокерский интерфейс. Это позволяет клиентам мгновенно перебрасывать ликвидность между покупками в магазине (через QR/СБП) и пополнением инвестиционного счета. Также банк подтвердил индексацию пенсий на 7,6% с начала года, что высвобождает дополнительную ликвидность у консервативного сегмента вкладчиков, которые все активнее тестируют инструменты фондового рынка.</div><div class="label">Эффект</div><div class="text">Для массового инвестора порог владения брокерским счетом практически исчез — при активном использовании экосистемы все сервисы становятся бесплатными. Бесшовная связь платежного счета и инвестиций позволяет управлять бюджетом в реальном времени: «сэкономил на покупках — сразу отправил в акции». Это формирует привычку микро-инвестирования у широких слоев населения.</div><div class="label">Цель</div><div class="text">Сбер стремится максимально консолидировать все финансовые транзакции клиента внутри своей платформы. Устранение платы за счета при выполнении условий активности стимулирует безналичный оборот и подписочную модель. Для инвестиционного блока это означает приток новых «дешевых» пассивов и рост числа открытых счетов в сегментах молодежи и пенсионеров.</div><div class="label">Почему интересно АТОН</div><div class="text">Кейс иллюстрирует тренд на «невидимый банкинг», где инвестиции становятся естественным продолжением расчетного счета. Для АТОНа важно понимать механизмы удержания клиентов через экосистемные льготы, которые применяют крупнейшие игроки.</div></div>
+      <div class="detail-meta"><div class="label">Тип нововведения</div><div class="meta-line">Стратегия / UX (экосистемная тарификация и упрощение расчетов)</div><div class="label">Дата и источник</div><div class="meta-line">1 января 2026 года. Банкинформ, Главбух, пресс-релизы Сбербанка</div><div class="label">Платформа</div><div class="meta-line">iOS, Android, Web</div><div class="label">Где почитать</div><div class="meta-line"><div class="link">https://www.glavbukh.ru/art/393020-s-1-yanvarya-2026-goda-v-sbere-deystvuet-edinaya-komissiya-na-vse-vashi-karty-i-scheta</div><div class="link">https://bankinform.ru/news/140252</div></div></div>
+    </div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Финам (Россия).</div>
+    <div class="h2">Обмен замороженных активов (стратегия/сервис) (1/2)</div>
+    <div class="kp-grid"><div class="kp">
+  <div class="kp-num">1</div>
+  <div class="kp-title">Старт приема заявок</div>
+  <div class="kp-desc">Финам с января начал принимать заявки на обмен заблокированных иностранных ценных бумаг своих клиентов.</div>
+</div><div class="kp">
+  <div class="kp-num">2</div>
+  <div class="kp-title">Амбициозные обещания</div>
+  <div class="kp-desc">Брокер обещает постараться обменять весь замороженный портфель на ликвидные российские акции нерезидентов (из топ-10 биржи).</div>
+</div><div class="kp">
+  <div class="kp-num">3</div>
+  <div class="kp-title">Осторожная политика</div>
+  <div class="kp-desc">Процедура сложная, итог не гарантирован, но Финам берёт на себя получение всех необходимых разрешений у регуляторов.</div>
+</div><div class="kp">
+  <div class="kp-num">4</div>
+  <div class="kp-title">Повышение лояльности</div>
+  <div class="kp-desc">Эта инициатива помогает клиентам надеяться на возвращение капитала и повышает лояльность, показывая проактивность брокера в кризисной ситуации.</div>
+</div></div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Финам (Россия).</div>
+    <div class="h2">Обмен замороженных активов (стратегия/сервис) (2/2)</div>
+    <div class="detail-grid">
+      <div class="detail-main"><div class="label">Суть инновации</div><div class="text">Брокер «Финам» присоединился к числу участников программы обмена замороженных иностранных ценных бумаг. Со января 2026 года клиенты Финама получили возможность подавать заявки на обмен своих заблокированных активов (акций и облигаций, застрявших в иностранных депозитариях) на российские бумаги нерезидентов. Ранее аналогичные процедуры запустили несколько конкурентов (Инвестпалата, БКС, Тинькофф, Кит Финанс), и теперь Финам догнал рынок. Замгендиректора ФГ «Финам» Дмитрий Леснов подтвердил в эфире РБК, что компания начнёт собирать заявки, хотя подчёркивает, что успех обмена не гарантирован и зависит от договорённостей с иностранным контрагентом. Клиенты смогут предъявить к обмену весь свой заблокированный портфель; предполагается, что взамен они получат наиболее ликвидные акции из топ-10 на Мосбирже. Обмен – длительный и сложный процесс: брокер берёт на себя получение разрешений регуляторов РФ и зарубежья. Тысячи инвесторов с сотнями миллионов долларов замороженных активов в Финаме надеются через эту инициативу вернуть доступ к капиталу.</div><div class="label">Цель</div><div class="text">Предоставить пострадавшим клиентам шанс на возврат стоимости их инвестиций и тем самым повысить удовлетворённость и доверие к брокеру. Финам стремится не потерять клиентов, чьи зарубежные активы зависли: запуская обмен, компания показывает, что активно решает проблему, а не ждёт неопределённости. Кроме того, это имиджевый шаг: участие в первой волне обменов укрепляет позицию Финама как одного из ведущих брокеров, готовых к сложным инфраструктурным решениям. Стратегически успешный обмен может вернуть в обращение часть капитала клиентов, который затем, вероятно, будет реинвестирован на российском рынке через того же брокера. Таким образом, минимизировать потери клиентов и активов из-за геополитики и законодательно закрепить новые механизмы работы с санкционными активами.</div><div class="label">Почему интересно АТОН</div><div class="text">В условиях санкций и блокировок иностранного клиринга все российские брокеры ищут пути решения проблемы замороженных активов. Опыт Финама, объявившего сбор заявок на обмен, демонстрирует готовность индустрии к нестандартным решениям и взаимодействию с международными контрагентами ради клиентов. Для АТОН этот кейс важен с точки зрения конкурентной динамики: если обмены окажутся успешными, компании, участвующие в них, получат серьёзное преимущество в глазах инвесторов. АТОН целесообразно мониторить ход этих обменов и при возможности тоже подключаться к подобным инициативам, чтобы удержать доверие клиентов с заблокированными активами.</div></div>
+      <div class="detail-meta"><div class="label">Дата и источник</div><div class="meta-line">Анонс 30 декабря 2025 (реализация с января 2026).</div><div class="label">Платформа</div><div class="meta-line">Брокерское обслуживание (заявки через личный кабинет/менеджера).</div><div class="label">Где почитать</div><div class="meta-line"><div class="link">https://www.rbc.ru/quote/news/article/6953a7359a7947ad3cd3da20</div></div></div>
+    </div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Public.com (США).</div>
+    <div class="h2">Интеграция пре-маркет аналитики и фракционные казначейские облигации (1/2)</div>
+    <div class="kp-grid"><div class="kp">
+  <div class="kp-num">1</div>
+  <div class="kp-title">Пре-маркет аналитика</div>
+  <div class="kp-desc">Детальная статистика и сводки по торгам с 4:00 утра позволяют реагировать на новости до открытия биржи.</div>
+</div><div class="kp">
+  <div class="kp-num">2</div>
+  <div class="kp-title">Фракционные Treasuries</div>
+  <div class="kp-desc">Возможность покупки долей государственных облигаций США для получения гарантированной доходности.</div>
+</div><div class="kp">
+  <div class="kp-num">3</div>
+  <div class="kp-title">Единый кросс-активный портфель</div>
+  <div class="kp-desc">Управление акциями, бондами, крипто и опционами в рамках одного интерфейса с общей маржой.</div>
+</div><div class="kp">
+  <div class="kp-num">4</div>
+  <div class="kp-title">AI-поиск по облигациям</div>
+  <div class="kp-desc">Интеллектуальный помощник подбирает выпуски облигаций под конкретные цели инвестора по сроку и доходности.</div>
+</div></div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Public.com (США).</div>
+    <div class="h2">Интеграция пре-маркет аналитики и фракционные казначейские облигации (2/2)</div>
+    <div class="detail-grid">
+      <div class="detail-main"><div class="label">Суть инновации</div><div class="text">Инвестиционная платформа Public.com в январе 2026 года обновила интерфейс для торговли в расширенные часы (пре-маркет с 4:00 AM ET), внедрив автоматические сводки по волатильности бумаг до открытия основной сессии. Система в реальном времени рассчитывает процентное изменение относительно закрытия предыдущего дня и подсвечивает high/low значения пре-маркета прямо в карточке актива. Параллельно платформа расширила доступ к казначейским облигациям США (Treasury Notes), предложив покупку как целых бондов, так и их фракционных частей с доходностью около 3,70%. Пользователи могут управлять государственным долгом в одном портфеле с криптоактивами, опционами и акциями, используя AI-подсказки для поиска наиболее выгодных выпусков по дате погашения.</div><div class="label">Эффект</div><div class="text">Инвесторы получили инструмент для быстрой реакции на утренние новости до официального старта торгов на NYSE/NASDAQ. Наличие фракционных казначейских облигаций позволяет даже мелким вкладчикам создавать лестницы облигаций (bond ladders) для получения предсказуемого дохода. Единый интерфейс для всех типов активов снижает фрагментацию портфеля и упрощает налоговый учет.</div><div class="label">Цель</div><div class="text">Public.com стремится выделиться среди конкурентов за счет предоставления доступа к «институциональным» инструментам (госдолг) в максимально доступном формате. Развитие пре-маркет аналитики стимулирует активность пользователей в утренние часы, увеличивая торговые обороты. Платформа также монетизирует подписку Alpha, предлагая расширенные AI-исследования по долговым рынкам.</div><div class="label">Почему интересно АТОН</div><div class="text">Кейс Public.com — это пример создания удобной витрины для облигаций. Для АТОНа это возможность пересмотреть визуализацию долговых инструментов, сделав их такими же понятными и доступными для покупки, как обычные акции.</div></div>
+      <div class="detail-meta"><div class="label">Тип нововведения</div><div class="meta-line">UX / Функция (доступ к расширенным часам торгов и госдолгу)</div><div class="label">Дата и источник</div><div class="meta-line">Январь 2026 года. Public.com платформенные данные</div><div class="label">Платформа</div><div class="meta-line">Web, iOS, Android</div><div class="label">Где почитать</div><div class="meta-line"><div class="link">https://public.com/bonds/treasury/united-states/ust-0.375-01-31-2026-91282cbh3?wpsrc</div><div class="link">https://public.com/stocks/form/pre-market</div></div></div>
+    </div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Moomoo (США/Азия).</div>
+    <div class="h2">Опционы с экспирацией в понедельник и среду и кэш-свип 8,1% (1/2)</div>
+    <div class="kp-grid"><div class="kp">
+  <div class="kp-num">1</div>
+  <div class="kp-title">Ежедневные опционы (Mon/Wed)</div>
+  <div class="kp-desc">Расширение циклов экспирации для топ-акций и биткоин-ETF дает трейдерам гибкость стратегий 0DTE.</div>
+</div><div class="kp">
+  <div class="kp-num">2</div>
+  <div class="kp-title">Cash Sweep 8,1% APY</div>
+  <div class="kp-desc">Агрессивная промо-ставка на остаток денежных средств для привлечения новых депозитов на платформу.</div>
+</div><div class="kp">
+  <div class="kp-num">3</div>
+  <div class="kp-title">Бонус акциями NVIDIA</div>
+  <div class="kp-desc">За пополнение счета и перевод активов клиенты получают дробные акции NVDA на сумму до $1000.</div>
+</div><div class="kp">
+  <div class="kp-num">4</div>
+  <div class="kp-title">FDIC страховка $2 млн</div>
+  <div class="kp-desc">Повышенная защита денежных средств за счет распределения остатков между несколькими банками-партнерами.</div>
+</div></div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Moomoo (США/Азия).</div>
+    <div class="h2">Опционы с экспирацией в понедельник и среду и кэш-свип 8,1% (2/2)</div>
+    <div class="detail-grid">
+      <div class="detail-main"><div class="label">Суть инновации</div><div class="text">Платформа Moomoo (Futu Holdings) в январе 2026 года значительно усилила свой инструментарий для активных трейдеров. В партнерстве с Nasdaq были запущены опционы с датами истечения в понедельник и среду для девяти крупнейших бумаг, включая «Великолепную семерку» и биткоин-ETF (IBIT). Это позволяет реализовывать стратегии 0DTE (ноль дней до экспирации) практически ежедневно. Для поддержки новичков брокер предложил агрессивную промо-ставку 8,1% APY на неинвестированные денежные средства в рамках программы Cash Sweep (базовая ставка 3,35% + бонус 4,75% на 2 месяца). Технологически платформа обновила «Опционный калькулятор», позволяющий моделировать греки и подразумеваемую волатильность в реальном времени с учетом новых циклов экспирации.</div><div class="label">Эффект</div><div class="text">Активные трейдеры получили гибкость, сопоставимую с торговлей индексами, но на уровне отдельных акций. Возможность торговать опционами трижды в неделю увеличивает частоту сбора премий для стратегий типа Covered Calls. Высокая доходность на остаток (8,1%) делает Moomoo привлекательным местом для «парковки» кэша в периоды ожидания рыночных сигналов, при этом средства застрахованы FDIC до $2 млн.</div><div class="label">Цель</div><div class="text">Moomoo агрессивно борется за долю рынка в США и Азии, используя высокую доходность на остаток как инструмент привлечения новых депозитов (Net Deposit Bonus в виде акций NVDA до $1000). Запуск новых опционных контрактов направлен на рост комиссионных доходов от деривативов, где маржинальность значительно выше, чем в торговле акциями с нулевой комиссией.</div><div class="label">Почему интересно АТОН</div><div class="text">Кейс демонстрирует, как брокер может сочетать агрессивный маркетинг (высокий APY) с предоставлением сложного профессионального инструментария. Для АТОНа это пример развития опционной аналитики как способа удержания квалифицированных инвесторов.</div></div>
+      <div class="detail-meta"><div class="label">Тип нововведения</div><div class="meta-line">Функция / Технология (расширение опционного десктопа и доходность на остаток)</div><div class="label">Дата и источник</div><div class="meta-line">26 января 2026 года (опционы), 1 января 2026 года (кэш-свип). PRNewswire, Moomoo Support</div><div class="label">Платформа</div><div class="meta-line">Desktop-терминал, iOS, Android</div><div class="label">Где почитать</div><div class="meta-line"><div class="link">https://www.moomoo.com/us/support/topic4_410</div><div class="link">https://www.prnewswire.com/news-releases/a-new-era-in-options-trading-moomoo-partners-with-nasdaq-to-deliver-monday--wednesday-expirations-for-greater-flexibility-and-opportunity-302670198.html</div></div></div>
+    </div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Revolut (Европа/Мексика).</div>
+    <div class="h2">Полноценный запуск банка в Мексике и новые риск-метрики (1/2)</div>
+    <div class="kp-grid"><div class="kp">
+  <div class="kp-num">1</div>
+  <div class="kp-title">Банковская лицензия в Мексике</div>
+  <div class="kp-desc">Revolut стал первым независимым цифровым банком с прямой лицензией в Мексике, открыв доступ к банкингу 70 млн пользователей.</div>
+</div><div class="kp">
+  <div class="kp-num">2</div>
+  <div class="kp-title">Опросник на пригодность активов</div>
+  <div class="kp-desc">С 9 января введена обязательная проверка знаний инвестора перед доступом к сложным ETF и робо-эдвайзингу.</div>
+</div><div class="kp">
+  <div class="kp-num">3</div>
+  <div class="kp-title">Сбережения без ваултов</div>
+  <div class="kp-desc">Возможность получать повышенный доход на остаток до 25 000 MXN без необходимости перевода средств в специальные копилки.</div>
+</div><div class="kp">
+  <div class="kp-num">4</div>
+  <div class="kp-title">Инвестиционная страховка €22k</div>
+  <div class="kp-desc">Обновленные правила гарантируют защиту инвестиционных активов клиентов в рамках европейских фондов компенсации.</div>
+</div></div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Revolut (Европа/Мексика).</div>
+    <div class="h2">Полноценный запуск банка в Мексике и новые риск-метрики (2/2)</div>
+    <div class="detail-grid">
+      <div class="detail-main"><div class="label">Суть инновации</div><div class="text">27 января 2026 года Revolut официально объявил о завершении бета-фазы и запуске полноценных банковских операций в Мексике под брендом Revolut Bank S.A.. Это первый выход компании за пределы Европы с прямой банковской лицензией, полученной через независимую заявку. Мексиканским клиентам предложены сберегательные счета с рыночной доходностью, мгновенные трансграничные переводы и инструменты управления семейным капиталом Revolut Kids &amp; Teens. Параллельно, с 9 января 2026 года Revolut ввел новые стандарты защиты розничных инвесторов: обязательное прохождение опросника на «пригодность» (appropriateness questionnaire) для доступа к сложным ETF (плечевым и инверсным) и услугам Robo-Advisor. Также была внедрена страховка инвестиционных обязательств до 22 000 евро в соответствии с литовским законодательством для европейских клиентов.</div><div class="label">Эффект</div><div class="text">Мексиканские пользователи получили цифровую альтернативу традиционным банкам с бесшовным доступом к глобальной финансовой системе. Для инвесторов в Европе нововведения означают повышенный уровень защиты: система не позволит торговать рискованными инструментами без подтвержденного уровня знаний, что снижает вероятность катастрофических убытков для новичков.</div><div class="label">Цель</div><div class="text">Запуск в Мексике — это плацдарм для экспансии во всю Латинскую Америку с целью достичь 100 млн клиентов глобально. Инвестиции в размере более $100 млн и высокий коэффициент адекватности капитала (447%) подчеркивают серьезность намерений брокера. Усиление комплаенса и скоринга инвесторов направлено на соответствие ужесточающимся требованиям регуляторов ЕС (MiFID II/MiCA), что минимизирует юридические риски компании.</div><div class="label">Почему интересно АТОН</div><div class="text">Кейс интересен с точки зрения построения международной инфраструктуры и внедрения адаптивных опросников для классификации инвесторов. Для АТОНа это пример того, как регуляторные требования можно превратить в элемент доверия и безопасности бренда.</div></div>
+      <div class="detail-meta"><div class="label">Тип нововведения</div><div class="meta-line">Стратегия / Технология (выход на новый рынок и обновление инвестиционного профилирования)</div><div class="label">Дата и источник</div><div class="meta-line">27 января 2026 года (запуск в Мексике), 9 января 2026 года (обновление условий). Официальный блог Revolut, Fintech News Singapore</div><div class="label">Платформа</div><div class="meta-line">iOS, Android (мобильное приложение)</div><div class="label">Где почитать</div><div class="meta-line"><div class="link">https://www.revolut.com/en-IS/news/revolut_launches_full_banking_operations_in_mexico_accelerating_global_expansion/</div></div></div>
+    </div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Robinhood (США).</div>
+    <div class="h2">Экосистема Robinhood Cortex и закрытие сделки по MIAXdx (1/2)</div>
+    <div class="kp-grid"><div class="kp">
+  <div class="kp-num">1</div>
+  <div class="kp-title">Голосовое управление Cortex</div>
+  <div class="kp-desc">Интерактивный ИИ-помощник выполняет торговые команды и проводит исследования по запросу на естественном языке.</div>
+</div><div class="kp">
+  <div class="kp-num">2</div>
+  <div class="kp-title">Portfolio Digests</div>
+  <div class="kp-desc">Ежедневные персонализированные отчеты анализируют причины движения активов в портфеле пользователя.</div>
+</div><div class="kp">
+  <div class="kp-num">3</div>
+  <div class="kp-title">Биржа MIAXdx и деривативы</div>
+  <div class="kp-desc">Закрытие сделки по покупке биржи позволяет брокеру запустить собственный клиринг фьючерсов и опционов.</div>
+</div><div class="kp">
+  <div class="kp-num">4</div>
+  <div class="kp-title">AI-сравнение с бенчмарками</div>
+  <div class="kp-desc">Система в реальном времени сопоставляет доходность портфеля с S&amp;P 500 и объясняет отклонения.</div>
+</div></div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Robinhood (США).</div>
+    <div class="h2">Экосистема Robinhood Cortex и закрытие сделки по MIAXdx (2/2)</div>
+    <div class="detail-grid">
+      <div class="detail-main"><div class="label">Суть инновации</div><div class="text">В январе 2026 года Robinhood официально начал развертывание инвестиционного помощника следующего поколения — Robinhood Cortex. Это GenAI-система, которая позволяет управлять портфелем через естественный язык: пользователь может попросить ИИ «купить акции Apple на $500», «провести исследование рынка» или «объяснить влияние новостей на мои позиции». Особое внимание уделено функции «Portfolio Digests» — персонализированным саммари, которые анализируют драйверы доходности портфеля и сравнивают их с S&amp;P 500, учитывая даже предстоящие сплиты акций и отчетности. Стратегически важным событием стало закрытие 20 января 2026 года сделки по приобретению биржи MIAXdx через совместное предприятие с Susquehanna. Это дает Robinhood доступ к собственной лицензированной CFTC инфраструктуре для запуска фьючерсов и сложных деривативов в 2026 году.</div><div class="label">Эффект</div><div class="text">Для пользователей подписки Gold (стоимостью $5 в месяц) Cortex становится «личным аналитиком в кармане», который снимает барьер между идеей и исполнением. Функция Digests избавляет от необходимости вручную сопоставлять новости с котировками — ИИ делает это автоматически, объясняя сложные рыночные процессы «простым английским языком». Покупка MIAXdx в перспективе обеспечит клиентам доступ к более широкому спектру инструментов хеджирования с меньшими издержками.</div><div class="label">Цель</div><div class="text">Robinhood стремится максимизировать доход от подписок (SaaS-модель), предлагая эксклюзивные AI-инструменты за плату. Интеграция Cortex повышает лояльность и время нахождения в приложении. Приобретение биржевой инфраструктуры MIAXdx — это шаг к превращению из брокера в полноценную финансовую технологическую компанию с собственным клирингом и биржевыми мощностями.</div><div class="label">Почему интересно АТОН</div><div class="text">Кейс иллюстрирует, как GenAI становится ключевым дифференциатором премиального обслуживания в ритейле. Для АТОНа это пример того, как аналитическая экспертиза может быть упакована в форму удобного цифрового ассистента, доступного клиенту 24/7.</div></div>
+      <div class="detail-meta"><div class="label">Тип нововведения</div><div class="meta-line">Технология / Стратегия (GenAI ассистент и экспансия на рынок деривативов)</div><div class="label">Дата и источник</div><div class="meta-line">20–27 января 2026 года (официальный релиз функций). Robinhood Newsroom, Nasdaq, Zacks</div><div class="label">Платформа</div><div class="meta-line">iOS, Android (эксклюзивно для Gold-подписчиков)</div><div class="label">Где почитать</div><div class="meta-line"><div class="link">https://robinhood.com/us/en/newsroom/robinhood-presents-yes-no-event/</div></div></div>
+    </div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Webull (США/Китай).</div>
+    <div class="h2">Торговля на основании событий (предсказательные рынки) и геймификация (1/2)</div>
+    <div class="kp-grid"><div class="kp">
+  <div class="kp-num">1</div>
+  <div class="kp-title">Контракты на события</div>
+  <div class="kp-desc">Webull начал предлагать клиентам контракты на события – например, на исход главного футбольного матча года, экономические индикаторы и др..</div>
+</div><div class="kp">
+  <div class="kp-num">2</div>
+  <div class="kp-title">Нулевая комиссия</div>
+  <div class="kp-desc">Торговля проходит на регулируемой бирже (партнёр – Kalshi), что превращает ставки на событие в инвестиционный инструмент с $0 комиссией (кроме биржевых сборов).</div>
+</div><div class="kp">
+  <div class="kp-num">3</div>
+  <div class="kp-title">Выгоднее, чем пари</div>
+  <div class="kp-desc">Пользователи могут в любой момент продать контракт, фиксируя прибыль/убыток по изменившимся вероятностям, – в отличие от классических пари, это придаёт гибкость.</div>
+</div><div class="kp">
+  <div class="kp-num">4</div>
+  <div class="kp-title">Геймификация</div>
+  <div class="kp-desc">Платформа интегрировала социальный функционал и аналитику «мудрости толпы» (aggregated sentiment), делая торговлю событиями похожей на игру, которая удерживает внимание клиентов и открывает новый поток доходов и активности для брокера.</div>
+</div></div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Webull (США/Китай).</div>
+    <div class="h2">Торговля на основании событий (предсказательные рынки) и геймификация (2/2)</div>
+    <div class="detail-grid">
+      <div class="detail-main"><div class="label">Суть инновации</div><div class="text">Мобильный брокер Webull добавил в свой сервис совершенно новый для традиционных площадок класс инструментов – регулируемые рынки предсказаний (event contracts). В сотрудничестве с CFTC-лицензированной биржей Kalshi платформа предлагает пользователям торги контрактами, привязанными к исходам реальных событий. В преддверии финала сезона американского футбола (Super Bowl) Webull запустил торговлю контрактами на исход матча («Big Game») с нулевой комиссией для клиентов. Фактически, пользователи могут покупать и продавать позиции на то, как закончится спортивное событие, при этом торги идут в режиме реального времени, а цена контракта отражает вероятность того или иного результата. Помимо спорта доступны и другие категории: макроэкономические показатели, курсы криптовалют, социальные тренды и т.д.. Особенность таких контрактов – возможность выйти из сделки в любой момент до наступления события, фиксируя прибыль или убыток по текущей рыночной цене (в отличие от ставки, которую нельзя забрать назад). Webull интегрировал эти рынки в своё приложение: появился отдельный Prediction Market Hub с котировками, общим настроением участников и даже дискуссионными функциями для сообщества трейдеров, обсуждающих событие. Всё это оформлено в игровой, понятной для массового пользователя форме – по сути, брокер геймифицирует инвестиции, превращая новости и события в трейдинговые возможности.</div><div class="label">Цель</div><div class="text">Привлечь и удержать молодую аудиторию и тех пользователей, кто интересуется не только традиционными акциями, но и спортивными или политическими событиями. Webull стремится стать «супераппом» для финансовых развлечений: предложив легальный вариант ставок (через регулируемые биржевые контракты), платформа увеличивает вовлечённость клиентов, особенно в периоды между торговыми сессиями на рынках акций. Это также источник дополнительной активности – статистика Webull уже показала существенный рост объёмов trade-на предсказательных рынках с момента их запуска в конце 2025. Компания расширяет ассортимент, чтобы дифференцироваться от конкурентов типа Robinhood, предоставляя уникальный опыт на стыке трейдинга и беттинга. В долгосрочной стратегии Webull фокусируется на интерактивности и сообществе: через такие функции клиенты чаще открывают приложение, обсуждают события, что повышает показатели retention и cross-sell (например, пользователи спортивных контрактов могут позже перейти к торговле акциями, и наоборот).</div><div class="label">Почему интересно АТОН</div><div class="text">Этот кейс демонстрирует сближение финансовых платформ с индустрией азартных игр (в регулируемом формате). Хотя АТОН фокусируется на профессиональных инвестициях, тенденция к геймификации и вовлечению через нетривиальные инструменты (например, торговля событиями) может со временем охватить и более консервативные сегменты. Поколение новых инвесторов ценит интерактивный, социальный опыт, и опыт Webull подсказывает, как можно легально удовлетворять этот спрос (через партнёрство с лицензированными биржами событий). АТОН в ближайшей перспективе может не запускать подобные сервисы, но понимание, что конкуренты расширяют понятие “инвестиции” (до торговли прогнозами), важно для маркетинговой стратегии – возможно, стоит акцентировать свою экспертизу и надёжность в противоположность геймификации или, наоборот, подумать о обучающих играх, конкурсах прогнозов для повышения интереса молодёжи к инвестициям.</div></div>
+      <div class="detail-meta"><div class="label">Дата и источник</div><div class="meta-line">27 января 2026 (пресс-релиз Webull, PR Newswire).</div><div class="label">Платформа</div><div class="meta-line">Торговое приложение Webull (раздел Prediction Markets).</div></div>
+    </div>
+  </div>
+</section><section class="slide">
+  <div class="slide-inner">
+    <div class="h1">Ключевые выводы</div>
+    <div class="h2">для АТОН</div>
+    <div class="take-grid"><div class="take-item"><div class="take-title">Т- Инвестиции (Россия) – Новый функционал трейдинга</div><div class="take-text">Тинькофф – лидер российского финтеха – внедряет продвинутые trading-интерфейсы, упрощая активным инвесторам жизнь. АТОН может учесть этот кейс в конкурентном анализе: расширенные быстрые сделки и совмещенные экраны заявок повышают лояльность продвинутых клиентов – потенциально стоит рассмотреть схожие улучшения в собственных платформах.</div></div><div class="take-item"><div class="take-title">Т-Инвестиции (Россия) — Смарт-облигации с доходностью 21,94%</div><div class="take-text">Этот кейс демонстрирует потенциал создания собственных внебиржевых долговых продуктов для розничных клиентов. Для АТОНа это сигнал о востребованности инструментов с фиксированной доходностью и ежемесячными выплатами в текущих макроэкономических условиях.</div></div><div class="take-item"><div class="take-title">Альфа-Инвестиции (Россия) — Социальная сеть «Альфа-Инвестор» и AI-модерация</div><div class="take-text">Кейс подчеркивает важность контентной составляющей и сообщества в современном брокере. Для АТОНа это пример того, как можно использовать ИИ для фильтрации огромных массивов данных и предоставления клиенту только релевантной и безопасной информации.</div></div><div class="take-item"><div class="take-title">СберИнвестиции (Россия) — Единая тарифная система и интеграция платежных счетов</div><div class="take-text">Кейс иллюстрирует тренд на «невидимый банкинг», где инвестиции становятся естественным продолжением расчетного счета. Для АТОНа важно понимать механизмы удержания клиентов через экосистемные льготы, которые применяют крупнейшие игроки.</div></div><div class="take-item"><div class="take-title">Финам (Россия) – Обмен замороженных активов (стратегия/сервис)</div><div class="take-text">В условиях санкций и блокировок иностранного клиринга все российские брокеры ищут пути решения проблемы замороженных активов. Опыт Финама, объявившего сбор заявок на обмен, демонстрирует готовность индустрии к нестандартным решениям и взаимодействию с международными контрагентами ради клиентов. Для АТОН этот кейс важен с точки зрения конкурентной динамики: если обмены окажутся успешными, компании, участвующие в них, получат серьёзное преимущество в глазах инвесторов. АТОН целесообразно мониторить ход этих обменов и при возможности тоже подключаться к подобным инициативам, чтобы удержать доверие клиентов с заблокированными активами.</div></div><div class="take-item"><div class="take-title">Public.com (США) — Интеграция пре-маркет аналитики и фракционные казначейские облигации</div><div class="take-text">Кейс Public.com — это пример создания удобной витрины для облигаций. Для АТОНа это возможность пересмотреть визуализацию долговых инструментов, сделав их такими же понятными и доступными для покупки, как обычные акции.</div></div></div>
+  </div>
+</section>
+  </div>
+  <div class="nav">
+    <button class="btn" id="prev">Назад</button>
+    <button class="btn" id="next">Вперед</button>
+    <span>Стрелки ← → тоже работают</span>
+  </div>
+  <div class="toolbar">
+    <a class="btn" href="jan2026_preview.pdf" download>Скачать PDF</a>
+  </div>
+  <div class="progress" id="progress"></div>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    let idx = 0;
+    slides.forEach((s,i)=>{ s.dataset.idx = String(i+1).padStart(2, '0'); });
+    function render() {
+      slides.forEach((s,i)=>s.classList.toggle('active', i===idx));
+      const prog = document.getElementById('progress');
+      if (prog) {
+        prog.textContent = (idx+1) + ' / ' + slides.length;
+        prog.style.setProperty('--pct', ((idx+1)/slides.length*100).toFixed(1) + '%');
+      }
+    }
+    function next() { if (idx < slides.length-1) { idx++; render(); } }
+    function prev() { if (idx > 0) { idx--; render(); } }
+    const nextBtn = document.getElementById('next');
+    const prevBtn = document.getElementById('prev');
+    if (nextBtn) nextBtn.addEventListener('click', next);
+    if (prevBtn) prevBtn.addEventListener('click', prev);
+    document.addEventListener('keydown', (e)=>{
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') next();
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') prev();
+    });
+    render();
+  </script>
+</body>
+</html>
